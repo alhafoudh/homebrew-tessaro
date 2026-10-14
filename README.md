@@ -4,10 +4,14 @@
 tap installs its clients, which manage Tessaro devices from your computer.
 
 ```sh
-brew tap alhafoudh/tessaro
-brew install tessaro-ctl            # the command-line client
-brew install --cask tessaro-gui     # the desktop app, Tessaro.app
+brew install alhafoudh/tessaro/tessaro-ctl            # the command-line client
+brew install --cask alhafoudh/tessaro/tessaro-gui     # the desktop app, Tessaro.app
 ```
+
+The full name taps the repo and trusts the formula or cask in one step.
+Homebrew refuses the short name (`brew install tessaro-ctl`) from a tap it
+does not trust; `brew trust alhafoudh/tessaro` trusts the whole tap, after
+which the short names work.
 
 | | macOS (Apple silicon) | Linux x86_64 | Linux aarch64 |
 | --- | --- | --- | --- |
