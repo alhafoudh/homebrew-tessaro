@@ -3,27 +3,27 @@
 class TessaroCtl < Formula
   desc "Manage Tessaro kiosk devices from the command-line"
   homepage "https://github.com/alhafoudh/tessaro-os"
-  version "0.1.3-d0d7bf4"
+  version "0.1.4-e3f34d0"
   license "Apache-2.0"
 
   on_macos do
     depends_on arch: :arm64
 
     on_arm do
-      url "https://github.com/alhafoudh/tessaro-os/releases/download/v0.1.3-d0d7bf4/tessaro-ctl-0.1.3-d0d7bf4-macos-arm64.tar.gz"
-      sha256 "77f6c2200def6df0dc20770361047dbb03d0bae434262e9999677f875d226597"
+      url "https://github.com/alhafoudh/tessaro-os/releases/download/v0.1.4-e3f34d0/tessaro-ctl-0.1.4-e3f34d0-macos-arm64.tar.gz"
+      sha256 "28237a7f07b7e194b9181257adac74d1c3999817180f158aed9d8eb8a80df6f3"
     end
   end
 
   # Built on Ubuntu 22.04: glibc 2.35 and the system's libssl3.
   on_linux do
     on_intel do
-      url "https://github.com/alhafoudh/tessaro-os/releases/download/v0.1.3-d0d7bf4/tessaro-ctl-0.1.3-d0d7bf4-linux-x86_64.tar.gz"
-      sha256 "8b197c3c3e827f863ce84cd3e161b1d3ae1dec85f145749546aaf19991f895c1"
+      url "https://github.com/alhafoudh/tessaro-os/releases/download/v0.1.4-e3f34d0/tessaro-ctl-0.1.4-e3f34d0-linux-x86_64.tar.gz"
+      sha256 "3a123adbf39da4e51b91e0b6baff803fc14fd9de16642db0e6de4ec35a3c6d00"
     end
     on_arm do
-      url "https://github.com/alhafoudh/tessaro-os/releases/download/v0.1.3-d0d7bf4/tessaro-ctl-0.1.3-d0d7bf4-linux-aarch64.tar.gz"
-      sha256 "a25f258f2da571bf0df07e4ebf5dd56b623c92b504c30821a7e359939c742cd4"
+      url "https://github.com/alhafoudh/tessaro-os/releases/download/v0.1.4-e3f34d0/tessaro-ctl-0.1.4-e3f34d0-linux-aarch64.tar.gz"
+      sha256 "e2743bb38fd53b7e415b512c6eb41da640e29e52e11a7b797729eb9da7ce65c2"
     end
   end
 
