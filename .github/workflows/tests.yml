@@ -1,0 +1,58 @@
+# Checks the formula and the cask on every push, the release's own push
+# from tessaro-os included: style and audit, then each installed and tested
+# on the platforms it supports.
+
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      # Taps this checkout as alhafoudh/tessaro.
+      - uses: Homebrew/actions/setup-homebrew@main
+      - run: brew style alhafoudh/tessaro
+      - run: brew audit --strict alhafoudh/tessaro/tessaro-ctl
+      - run: brew audit --strict --cask alhafoudh/tessaro/tessaro-gui
+
+  formula:
+    needs: audit
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-22.04, ubuntu-22.04-arm]
+      fail-fast: false
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: Homebrew/actions/setup-homebrew@main
+      - run: brew install alhafoudh/tessaro/tessaro-ctl
+      - run: brew test alhafoudh/tessaro/tessaro-ctl
+      - run: tessaro-ctl --version
+
+  cask:
+    needs: audit
+    runs-on: macos-latest
+    steps:
+      - uses: Homebrew/actions/setup-homebrew@main
+      - run: brew install --cask alhafoudh/tessaro/tessaro-gui
+      # The postflight step must have cleared it, or Gatekeeper refuses the app.
+      - name: No quarantine flag
+        run: |
+          app=/Applications/Tessaro.app
+          test -d "$app"
+          if xattr -p com.apple.quarantine "$app" 2>/dev/null; then
+            echo "::error::$app is still quarantined"
+            exit 1
+          fi
+      - run: codesign --verify --deep /Applications/Tessaro.app
