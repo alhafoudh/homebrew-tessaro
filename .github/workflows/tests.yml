@@ -26,6 +26,7 @@ jobs:
       - run: brew style alhafoudh/tessaro
       - run: brew audit --strict alhafoudh/tessaro/tessaro-ctl
       - run: brew audit --strict --cask alhafoudh/tessaro/tessaro-gui
+      - run: brew audit --strict --cask alhafoudh/tessaro/try-tessaro
 
   formula:
     needs: audit
@@ -42,17 +43,26 @@ jobs:
 
   cask:
     needs: audit
+    strategy:
+      matrix:
+        include:
+          - cask: tessaro-gui
+            app: Tessaro.app
+          - cask: try-tessaro
+            app: Try Tessaro.app
+      fail-fast: false
     runs-on: macos-latest
     steps:
       - uses: Homebrew/actions/setup-homebrew@main
-      - run: brew install --cask alhafoudh/tessaro/tessaro-gui
+      - run: brew install --cask "alhafoudh/tessaro/${{ matrix.cask }}"
       # The postflight step must have cleared it, or Gatekeeper refuses the app.
       - name: No quarantine flag
+        env:
+          APP: /Applications/${{ matrix.app }}
         run: |
-          app=/Applications/Tessaro.app
-          test -d "$app"
-          if xattr -p com.apple.quarantine "$app" 2>/dev/null; then
-            echo "::error::$app is still quarantined"
+          test -d "$APP"
+          if xattr -p com.apple.quarantine "$APP" 2>/dev/null; then
+            echo "::error::$APP is still quarantined"
             exit 1
           fi
-      - run: codesign --verify --deep /Applications/Tessaro.app
+          codesign --verify --deep "$APP"
