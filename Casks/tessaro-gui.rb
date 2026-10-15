@@ -1,8 +1,8 @@
 # Written by homebrew/render.rb in alhafoudh/tessaro-os on every release; an
 # edit here is overwritten by the next one.
 cask "tessaro-gui" do
-  version "0.1.4-e3f34d0"
-  sha256 "b3dad222743e95f1c55e1e456e7cc6490b28c286102a1932a5d30014c225c544"
+  version "0.1.5-c2f1923"
+  sha256 "3bb05f16280fc6519d1bfdaa7daa5b8425bb295b55e4c7edd77517a193a57996"
 
   url "https://github.com/alhafoudh/tessaro-os/releases/download/v#{version}/tessaro-gui-#{version}-macos-arm64.zip"
   name "Tessaro"

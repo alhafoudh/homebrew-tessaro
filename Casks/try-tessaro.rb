@@ -1,8 +1,8 @@
 # Written by homebrew/render.rb in alhafoudh/tessaro-os on every release that
 # builds Try Tessaro; an edit here is overwritten by the next one.
 cask "try-tessaro" do
-  version "0.1.4-e3f34d0"
-  sha256 "41df3fb45b1d2cbebc0ef2ca744bf23cbe7f719ea31ca4c150ec807019720bd5"
+  version "0.1.5-c2f1923"
+  sha256 "29c74546bae65582f86f0284dee63f24f6265299e0d94c8bd0b5d0fd0c4aa5ed"
 
   url "https://github.com/alhafoudh/tessaro-os/releases/download/v#{version}/try-tessaro-#{version}-macos-arm64.dmg"
   name "Try Tessaro"
